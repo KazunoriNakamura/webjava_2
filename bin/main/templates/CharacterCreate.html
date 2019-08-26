@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>キャラクター作成</title>
 </head>
 <body>
 <h1>キャラ作成</h1>
-<form th:action="@{/create}" method="POST" th:object="${CharacterForm}">
-<div class="form-group">
+ <form action="./command" th:object="${jobForm}">
   <label class="col-md-4 control-label">職業：</label>
         <div th:each="item : ${jobMapItems}">
             <input type="radio" name="jobs"
                 th:value="${item.key}" th:text="${item.value}" th:field="*{selectedJob}"/>
-        </div>
-</div><br>
+        </div><br>
 <label class="col-md-4 control-label">名前：</label>
   <input type="text" name="name" th:value="*{name}" /><br><br>
-  <input type="submit" style="width:80px" name="Command" value="次へ"></td>
+  <input type="submit" style="width:80px" value="次へ">
 </form>
 </body>
 </html>
