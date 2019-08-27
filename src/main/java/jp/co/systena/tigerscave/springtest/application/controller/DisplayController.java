@@ -1,4 +1,4 @@
-package jp.co.systena.tigerscave.rpgcontroller;
+package jp.co.systena.tigerscave.springtest.application.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,6 +25,9 @@ public class DisplayController {
       mav.addObject("jobMapItems",jobMap);
 
       mav.addObject("jobForm", new CharacterForm());
+
+      mav.setViewName("CharacterCreate");
+
       return mav;
   }
 
