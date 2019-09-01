@@ -1,4 +1,4 @@
-package jp.co.systena.tigerscave.rpg;
+package jp.co.systena.tigerscave;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

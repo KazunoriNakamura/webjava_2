@@ -1,6 +1,8 @@
 package jp.co.systena.tigerscave.rpgmodel;
 
 public abstract class Job {
-  abstract void attack();
+
+  public String attack;
+  public abstract void attack();
 
 }

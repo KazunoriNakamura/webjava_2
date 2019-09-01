@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'jp.co.systena.tigerscave.springtest'
+group = 'jp.co.systena.tigerscave'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
