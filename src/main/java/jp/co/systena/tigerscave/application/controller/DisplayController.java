@@ -3,9 +3,9 @@ package jp.co.systena.tigerscave.application.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +19,8 @@ public class DisplayController {
 
   @Autowired
   HttpSession session;
+
+  String m_name;
 
   // トップページ
   @RequestMapping(value = "/create", method = RequestMethod.GET) // URLとのマッピング
@@ -40,7 +42,7 @@ public class DisplayController {
 
 //コマンドページ
  @RequestMapping(value = "/command", method = RequestMethod.GET)
-  public ModelAndView command(@ModelAttribute CharacterForm jobForm, ModelAndView mav) {
+  public ModelAndView command(@Valid CharacterForm jobForm, ModelAndView mav) {
 
       String selectJob =  jobForm.getSelectedJob();
       String job = "戦士";
@@ -56,6 +58,7 @@ public class DisplayController {
         session.setAttribute("job", magician);
       }
 
+      m_name = jobForm.getInputName();
       mav.addObject("job", job);
       mav.addObject("name", jobForm.getInputName());
       mav.setViewName("command");
@@ -64,12 +67,14 @@ public class DisplayController {
 
  // 結果ページ
  @RequestMapping(value = "/result", method = RequestMethod.GET)
- public ModelAndView result(@ModelAttribute CharacterForm jobForm, ModelAndView mav) {
+ public ModelAndView result(ModelAndView mav) {
 
-   String attack;
+   String wepon;
    Job job = (Job) session.getAttribute("job");
-   attack = job.attack;
-   mav.addObject("attack", attack);
+   job.attack();
+   wepon = job.attack;
+   mav.addObject("wepon", wepon);
+   mav.addObject("name", m_name);
    mav.setViewName("result");
 
    return mav;

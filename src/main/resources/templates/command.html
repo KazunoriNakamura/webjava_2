@@ -5,7 +5,7 @@
 <title>コマンド</title>
 </head>
 <body>
- <form action="./result" th:object="${name}">
+ <form action="./result" th:object="${jobForm}" method="get">
    <label class="label">職業：</label>
    <p th:text="${job}"></p>
    <label class="label">名前：</label>

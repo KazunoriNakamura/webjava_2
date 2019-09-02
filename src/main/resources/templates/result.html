@@ -5,6 +5,9 @@
 <title>結果画面</title>
 </head>
 <body>
- <label class="label">で攻撃した</label>
+ <form action="./result" th:object="${jobForm}"  method="get">
+ <p th:text="${name}"></p>は
+ <p th:text="${wepon}"></p>で攻撃した
+  </form>
 </body>
 </html>
