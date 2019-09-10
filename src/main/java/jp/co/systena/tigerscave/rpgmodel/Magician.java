@@ -4,7 +4,7 @@ public class Magician extends Job {
 
   @Override
   public void attack() {
-    attack = "魔法で攻撃した！";
+    attack = "魔法で攻撃した！ １０のダメージ！";
   }
 
   @Override

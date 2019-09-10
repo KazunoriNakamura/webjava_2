@@ -1,7 +1,6 @@
 package jp.co.systena.tigerscave.application.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import jp.co.systena.tigerscave.rpgmodel.Fighter;
-import jp.co.systena.tigerscave.rpgmodel.Item;
 import jp.co.systena.tigerscave.rpgmodel.Job;
 import jp.co.systena.tigerscave.rpgmodel.Magician;
 import jp.co.systena.tigerscave.rpgmodel.Warrior;
@@ -34,10 +32,10 @@ public class DisplayController {
   // 職業
   String[] arryJob  = new String[4];
 
-  @Valid
-  private Collection<Item> items;
-
   List<String[]> data = new ArrayList<>();
+
+  // 敵HP
+  int enemyHP = 100;
 
   // トップページ
   @RequestMapping(value = "/create",  method = RequestMethod.GET) // URLとのマッピング
@@ -52,7 +50,6 @@ public class DisplayController {
       mav.addObject("jobMapItems",jobMap);
       mav.addObject("jobForm", new CharacterForm());
       mav.setViewName("CharacterCreate");
-
       return mav;
   }
 
@@ -112,12 +109,12 @@ public class DisplayController {
       mav.setViewName("command");
    }
    else {
-     for( int i = 0; i <= m_partynum; i++ ){
-       data.add(new String[] {arryJob[i], arryName[i]});
-     }
      String job = setSsession(jobForm);
      arryName[m_partynum] = jobForm.getInputName();
      arryJob[m_partynum] = job;
+     for( int i = 0; i <= m_partynum; i++ ){
+       data.add(new String[] {arryJob[i], arryName[i]});
+     }
      mav.addObject("data", data);
      mav.setViewName("command2");
    }
@@ -125,18 +122,31 @@ public class DisplayController {
       return mav;
   }
 
+ @RequestMapping(value = "/command",params = "return", method = RequestMethod.GET)
+ public ModelAndView recommand(@Valid CharacterForm jobForm, ModelAndView mav) {
+   mav.addObject("data", data);
+   mav.setViewName("command2");
+   return mav;
+ }
+
  // 結果ページ
  @RequestMapping(value = "/result", params = "attack", method = RequestMethod.GET)
  public ModelAndView attack(ModelAndView mav) {
 
+   enemyHP -= 10;
    String wepon;
    Job job = (Job) session.getAttribute("job");
    job.attack();
    wepon = job.attack;
    mav.addObject("wepon", wepon);
+   m_name = arryName[0];
    mav.addObject("name", m_name);
    mav.setViewName("result");
 
+   if (enemyHP == 0) {
+     mav.addObject("msg1","敵をやっつけた！");
+     enemyHP = 10;
+   }
    return mav;
  }
 

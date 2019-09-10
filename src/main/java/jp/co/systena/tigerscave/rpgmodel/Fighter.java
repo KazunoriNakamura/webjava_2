@@ -4,7 +4,7 @@ public class Fighter extends Job {
 
   @Override
   public void attack() {
-    attack = "剣で攻撃した！";
+    attack = "剣で攻撃した！ １０のダメージ！";
   }
 
   @Override
