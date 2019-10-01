@@ -66,7 +66,8 @@ public class DisplayController {
 
     mav.setViewName("CharacterCreate2");
     if (m_partynum <= 4) {
-      String job = setSsession(jobForm);
+      String job = getJob(jobForm);
+      setSsession(jobForm);
       arryName[m_partynum] = jobForm.getInputName();
       arryJob[m_partynum] = job;
       m_partynum++;
@@ -109,7 +110,8 @@ public class DisplayController {
       mav.setViewName("command");
    }
    else {
-     String job = setSsession(jobForm);
+     String job = getJob(jobForm);
+     setSsession(jobForm);
      arryName[m_partynum] = jobForm.getInputName();
      arryJob[m_partynum] = job;
      for( int i = 0; i <= m_partynum; i++ ){
@@ -164,10 +166,9 @@ public class DisplayController {
    return mav;
  }
 
- String setSsession(CharacterForm jobForm)
+ void setSsession(CharacterForm jobForm)
  {
    String selectJob =  jobForm.getSelectedJob();
-   String job = "戦士";
    if (selectJob.equals("key_fighter")) {
      Fighter fighter = new Fighter();
 
@@ -175,17 +176,31 @@ public class DisplayController {
    }
    else if (selectJob.equals("key_magician"))
    {
-     job ="魔法使い";
      Magician magician = new Magician();
      session.setAttribute("job", magician);
    }
    else if (selectJob.equals("key_warrior"))
    {
-     job ="武闘家";
      Warrior warrior = new Warrior();
      session.setAttribute("job", warrior);
    }
+ }
 
+ String getJob (CharacterForm jobForm)
+ {
+   String job = "";
+   String selectJob =  jobForm.getSelectedJob();
+   if (selectJob.equals("key_fighter")) {
+     job = "戦士";
+   }
+   else if (selectJob.equals("key_magician"))
+   {
+     job ="魔法使い";
+   }
+   else if (selectJob.equals("key_warrior"))
+   {
+     job ="武闘家";
+   }
    return job;
  }
 }

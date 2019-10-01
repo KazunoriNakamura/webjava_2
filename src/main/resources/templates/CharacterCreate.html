@@ -10,7 +10,7 @@
   <label class="label">職業：</label>
         <div th:each="item : ${jobMapItems}">
             <input type="radio" name="jobs"
-                th:value="${item.key}" th:text="${item.value}" th:field="*{selectedJob}"/>
+                th:value="${item.key}" th:text="${item.value}" th:field="*{selectedJob}" checked/>
         </div><br>
   <label class="label">名前：</label>
   <input type="text" name="text1" th:value="${text1_value}" th:field="*{inputName}"/><br><br>
