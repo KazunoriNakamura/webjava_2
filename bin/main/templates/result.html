@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>結果画面</title>
+</head>
+<body>
+ <form action="./command" th:object="${jobForm}">
+  <p th:text="${name}"></p>は
+  <p th:text="${wepon}"></p>
+  <input type="submit" style="width:80px" name="return" value="次へ">
+ </form>
+  <p th:text="${msg1}"><p>
+</body>
+</html>
